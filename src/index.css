@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --scrollbar: #ccc;
+  --scrollbar-hover: #b3b3b3;
+  --scrollbar-active: #999999;
+  --scrollbar-background: #e1e1e1;
+  --scrollbar-background-hover: #d4d4d4;
+}
+
+*::-webkit-scrollbar {
+  width: 8px; /* Tamaño del scroll en vertical */
+  height: 8px; /* Tamaño del scroll en horizontal */
+}
+
+*::-webkit-scrollbar {
+  width: 8px; /* Tamaño del scroll en vertical */
+  height: 8px; /* Tamaño del scroll en horizontal */
+}
+
+/* Ponemos un color de fondo y redondeamos las esquinas del thumb */
+*::-webkit-scrollbar-thumb {
+  background: var(--scrollbar);
+  border-radius: 4px;
+}
+
+/* Cambiamos el fondo y agregamos una sombra cuando esté en hover */
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-hover);
+  box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+/* Cambiamos el fondo cuando esté en active */
+*::-webkit-scrollbar-thumb:active {
+  background-color: var(--scrollbar-active);
+}
+
+/* Ponemos un color de fondo y redondeamos las esquinas del track */
+*::-webkit-scrollbar-track {
+  background: var(--scrollbar-background);
+  border-radius: 4px;
+}
+
+/* Cambiamos el fondo cuando esté en active o hover */
+*::-webkit-scrollbar-track:hover,
+*::-webkit-scrollbar-track:active {
+  background: var(--scrollbar-background-hover);
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+}
