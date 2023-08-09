@@ -1,23 +1,17 @@
 import { createContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { v4 as uuidv4 } from "uuid";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 export const TodoContext = createContext();
-
-// const initialTodos = [
-//   { id: uuidv4(), name: "Crear diseño app TODOS", isCompleted: true },
-//   { id: uuidv4(), name: "Programar app TODOS", isCompleted: false },
-//   { id: uuidv4(), name: "Hacer ejercicio", isCompleted: false },
-//   { id: uuidv4(), name: "Practicar Inglés", isCompleted: true },
-//   { id: uuidv4(), name: "Hacer el super", isCompleted: false },
-// ];
 
 TodoContextProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
 export function TodoContextProvider({ children }) {
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useLocalStorage("TODOS_V1");
+
   const [todosCompleted, setTodosCompleted] = useState({});
   const [todosIncompleted, setTodosIncompleted] = useState({});
   const [filterOptionSelected, setFilterOptionSelected] = useState("all");
