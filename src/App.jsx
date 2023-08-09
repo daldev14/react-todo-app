@@ -13,7 +13,16 @@ export default function App() {
       }`}
     >
       <header className="px-6 py-2 sm:px-10">
-        <div className="w-full flex justify-end">
+        <div className="w-full flex justify-between">
+          <div>
+            <a
+              href="https://github.com/daldev14/react-todo-app"
+              className="font-semibold hover:text-c-blue dark:text-white dark:hover:text-c-lightBlue"
+              title="Desarrollado moviendo las manitas 👋"
+            >
+              @daldev14
+            </a>
+          </div>
           <BtnChangeTheme
             handlerClick={changeChangeTheme}
             isDark={toggleDarkMode}
