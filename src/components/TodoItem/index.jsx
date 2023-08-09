@@ -1,19 +1,26 @@
-import { useState } from "react";
 import PropTypes from "prop-types";
+import { useTodo } from "../../hooks/useTodo";
 
 TodoItem.propTypes = {
-  text: PropTypes.string.isRequired,
-  isCompleted: PropTypes.bool.isRequired,
+  todo: PropTypes.object.isRequired,
 };
 
-export default function TodoItem({ text, isCompleted }) {
-  const [complete, setComplete] = useState(isCompleted);
-  const handlerComplete = () => setComplete(!complete);
+export default function TodoItem({ todo }) {
+  const { completedTodo, deleteTodo } = useTodo();
+  const { id, name, isCompleted } = todo;
+
+  const handlerComplete = () => {
+    completedTodo(id);
+  };
+
+  const handlerDelete = () => {
+    deleteTodo(id);
+  };
 
   return (
     <div
       className={`${
-        complete
+        isCompleted
           ? "bg-c-blue text-white border-c-lightBlue hover:shadow-c-blue/30"
           : "bg-white text-black dark:bg-c-black dark:text-white"
       } font-semibold w-full .px-4 .py-4 rounded border shadow-sm  transition-all duration-300 hover:shadow-md dark:border-c-accent-black dark:hover:shadow-c-black`}
@@ -29,7 +36,7 @@ export default function TodoItem({ text, isCompleted }) {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className={`${!complete ? "text-c-gray" : "text-white"} w-6 h-6`}
+            className={`${!isCompleted ? "text-c-gray" : "text-white"} w-6 h-6`}
           >
             <path
               strokeLinecap="round"
@@ -39,12 +46,17 @@ export default function TodoItem({ text, isCompleted }) {
           </svg>
 
           <div className="flex-1 mx-2">
-            <span className={`${complete ? "line-through" : ""}`}>{text}</span>
+            <span className={`${isCompleted ? "line-through" : ""}`}>
+              {name}
+            </span>
           </div>
         </div>
 
         <div className="pr-4">
-          <button className="group rounded-full p-1 transition-all duration-300 hover:bg-c-red">
+          <button
+            className="group rounded-full p-1 transition-all duration-300 hover:bg-c-red"
+            onClick={handlerDelete}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -52,7 +64,7 @@ export default function TodoItem({ text, isCompleted }) {
               strokeWidth={1.5}
               stroke="currentColor"
               className={`${
-                complete ? "text-white" : "text-black"
+                isCompleted ? "text-white" : "text-black"
               } w-5 h-5 group-hover:text-white dark:text-white`}
             >
               <title>Eliminar</title>

@@ -1,24 +1,25 @@
+import { useTodo } from "../../hooks/useTodo";
 import TodoFilter from "../TodoFilter";
 import TodoItem from "../TodoItem";
+import PropTypes from "prop-types";
 
-const todos = [
-  { name: "Crear diseño app TODOS", isCompleted: true },
-  { name: "Programar app TODOS", isCompleted: false },
-  { name: "Hacer ejercicio", isCompleted: false },
-  { name: "Practicar Inglés", isCompleted: true },
-  { name: "Hacer el super", isCompleted: false },
-];
+TodoList.propTypes = {
+  todos: PropTypes.array.isRequired,
+};
 
-export default function TodoList() {
+export default function TodoList({ todos }) {
+  const { todosCompleted } = useTodo();
+
   return (
     <div className="grid gap-1 w-full">
       <TodoFilter />
+      <span className="font-semibold text-sm dark:text-white">
+        TODOS completados {todosCompleted.length}/{todos.length}
+      </span>
       {todos.length ? (
         <div className="grid gap-2 w-full max-h-[26.25rem] overflow-y-auto pb-14 sm:px-1 sm:pb-2 .sm:max-h-[31.25rem]">
-          {todos.map(({ name, isCompleted }) => {
-            return (
-              <TodoItem key={name} text={name} isCompleted={isCompleted} />
-            );
+          {todos.map((todo) => {
+            return <TodoItem key={todo.id} todo={todo} />;
           })}
         </div>
       ) : (

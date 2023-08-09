@@ -2,11 +2,26 @@ import { useState } from "react";
 import BtnCreateTodo from "../Buttons/BtnCreateTodo";
 import BtnDeleteAllTodos from "../Buttons/BtnDeleteAllTodos";
 import BtnDefault from "../Buttons/BtnDefault";
+import { useTodo } from "../../hooks/useTodo";
 
 export default function TodoModal() {
   const [showModal, setShowModal] = useState(false);
+  const [todo, setTodo] = useState("");
+  const { createTodo, deleteAllTodos } = useTodo();
 
   const handlerToggleShowModal = () => {
+    setShowModal(!showModal);
+    setTodo("");
+  };
+
+  const handlerChange = (event) => {
+    setTodo(event.target.value);
+  };
+
+  const handlerSubmit = (event) => {
+    event.preventDefault();
+    if (todo !== "") createTodo({ name: todo.trim() });
+    setTodo("");
     setShowModal(!showModal);
   };
 
@@ -14,7 +29,7 @@ export default function TodoModal() {
     <div>
       <div className="fixed bottom-4 right-4">
         <div className="flex gap-4 items-end">
-          <BtnDeleteAllTodos />
+          <BtnDeleteAllTodos handlerClick={deleteAllTodos} />
           <BtnCreateTodo handlerClick={handlerToggleShowModal} />
         </div>
       </div>
@@ -30,26 +45,34 @@ export default function TodoModal() {
             <h1 className="font-bold text-4xl text-center dark:text-white">
               Nuevo TODO
             </h1>
-            <div>
-              <label htmlFor="inputAddTodo" className="sr-only">
-                Agregar TODO
-              </label>
-              <input
-                type="text"
-                name="inputAddTodo"
-                id="inputAddTodo"
-                placeholder="Agregar TODO"
-                className="bg-white py-3 px-4 rounded-md w-full border transition duration-300 hover:shadow-md focus:outline-none placeholder-c-gray dark:bg-c-black dark:border-c-accent-black dark:text-white dark:hover:shadow-c-black"
-              />
-            </div>
-            <div className="flex justify-center items-center gap-6">
-              <BtnDefault title="Guardar" color="blue" />
-              <BtnDefault
-                title="Cancelar"
-                color="red"
-                handlerClick={handlerToggleShowModal}
-              />
-            </div>
+            <form
+              action=""
+              onSubmit={handlerSubmit}
+              className="flex flex-col gap-3"
+            >
+              <div>
+                <label htmlFor="inputAddTodo" className="sr-only">
+                  Agregar TODO
+                </label>
+                <input
+                  type="text"
+                  name="inputAddTodo"
+                  id="inputAddTodo"
+                  placeholder="Agregar TODO"
+                  className="bg-white py-3 px-4 rounded-md w-full border transition duration-300 hover:shadow-md focus:outline-none placeholder-c-gray dark:bg-c-black dark:border-c-accent-black dark:text-white dark:hover:shadow-c-black"
+                  value={todo}
+                  onChange={handlerChange}
+                />
+              </div>
+              <div className="flex justify-center items-center gap-6">
+                <BtnDefault title="Guardar" color="blue" type="submit" />
+                <BtnDefault
+                  title="Cancelar"
+                  color="red"
+                  handlerClick={handlerToggleShowModal}
+                />
+              </div>
+            </form>
           </div>
         </div>
       </div>

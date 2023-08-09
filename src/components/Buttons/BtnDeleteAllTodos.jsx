@@ -1,6 +1,15 @@
-export default function BtnDeleteAllTodos() {
+import PropTypes from "prop-types";
+
+BtnDeleteAllTodos.propTypes = {
+  handlerClick: PropTypes.func,
+};
+
+export default function BtnDeleteAllTodos({ handlerClick }) {
   return (
-    <button className="bg-gradient-to-r from-c-red to-c-lightRed rounded-full text-white w-12 aspect-square border border-c-lightRed grid place-items-center shadow-md transition-all duration-300 hover:shadow-c-red/40 hover:shadow-xl hover:opacity-90 dark:hover:shadow-c-red/10">
+    <button
+      onClick={handlerClick}
+      className="bg-gradient-to-r from-c-red to-c-lightRed rounded-full text-white w-12 aspect-square border border-c-lightRed grid place-items-center shadow-md transition-all duration-300 hover:shadow-c-red/40 hover:shadow-xl hover:opacity-90 dark:hover:shadow-c-red/10"
+    >
       <span className="sr-only">Limpiar lista</span>
       <svg
         xmlns="http://www.w3.org/2000/svg"

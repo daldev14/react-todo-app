@@ -1,11 +1,21 @@
-export default function TodoSearch() {
-  const handlerSearchTodo = (event) => {
+import PropTypes from "prop-types";
+
+TodoSearch.propTypes = {
+  handlerSearchTodo: PropTypes.func.isRequired,
+};
+
+export default function TodoSearch({ handlerSearchTodo }) {
+  const handlerSubmit = (event) => {
     event.preventDefault();
+  };
+
+  const handlerChange = (event) => {
+    handlerSearchTodo(event.target.value);
   };
 
   return (
     <div className="bg-white px-2 rounded-md w-full border transition duration-300 hover:shadow-md dark:bg-c-black dark:border-c-accent-black dark:text-white dark:hover:shadow-c-black">
-      <form onSubmit={handlerSearchTodo} className="w-full">
+      <form onSubmit={handlerSubmit} className="w-full">
         <div className="flex items-center gap-3">
           <label htmlFor="todoSearch">
             <span className="sr-only">Buscar</span>
@@ -31,6 +41,7 @@ export default function TodoSearch() {
             id="todoSearch"
             placeholder="Buscar TODO"
             className="flex-1 focus:outline-none py-3 placeholder-c-gray bg-transparent"
+            onChange={handlerChange}
           />
         </div>
       </form>
