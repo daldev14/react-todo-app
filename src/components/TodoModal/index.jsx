@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import BtnCreateTodo from "../Buttons/BtnCreateTodo";
 import BtnDeleteAllTodos from "../Buttons/BtnDeleteAllTodos";
 import BtnDefault from "../Buttons/BtnDefault";
@@ -8,11 +8,16 @@ export default function TodoModal() {
   const [showModal, setShowModal] = useState(false);
   const [todo, setTodo] = useState("");
   const { createTodo, deleteAllTodos } = useTodo();
+  const inputRef = useRef();
 
   const handlerToggleShowModal = () => {
     setShowModal(!showModal);
     setTodo("");
   };
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, [showModal]);
 
   const handlerChange = (event) => {
     setTodo(event.target.value);
@@ -62,6 +67,7 @@ export default function TodoModal() {
                   className="bg-white py-3 px-4 rounded-md w-full border transition duration-300 hover:shadow-md focus:outline-none placeholder-c-gray dark:bg-c-black dark:border-c-accent-black dark:text-white dark:hover:shadow-c-black"
                   value={todo}
                   onChange={handlerChange}
+                  ref={inputRef}
                 />
               </div>
               <div className="flex justify-center items-center gap-6">

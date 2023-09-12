@@ -10,7 +10,7 @@ TodoContextProvider.propTypes = {
 };
 
 export function TodoContextProvider({ children }) {
-  const [todos, setTodos] = useLocalStorage("TODOS_V1");
+  const [todos, setTodos] = useLocalStorage("REACT_SIMPLE_TODOS_APP_V1");
 
   const [todosCompleted, setTodosCompleted] = useState({});
   const [todosIncompleted, setTodosIncompleted] = useState({});

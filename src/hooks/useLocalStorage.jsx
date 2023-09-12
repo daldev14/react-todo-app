@@ -1,8 +1,13 @@
 import { useState, useEffect } from "react";
 
 export default function useLocalStorage(itemName, initialValue = []) {
-  const getItems = () =>
-    JSON.parse(window.localStorage.getItem(itemName)) || initialValue;
+  const oldData = JSON.parse(window.localStorage.getItem("TODOS_V1")) || [];
+
+  const getItems = () => {
+    if (oldData.length !== 0) return oldData;
+
+    return JSON.parse(window.localStorage.getItem(itemName)) || initialValue;
+  };
 
   const [items, setItems] = useState(getItems);
 
