@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { v4 as uuidv4 } from "uuid";
-import useLocalStorage from "../hooks/useLocalStorage";
+// import useLocalStorage from "../hooks/useLocalStorage";
+import useTodoReducer from "../hooks/useTodoReducer";
 
 export const TodoContext = createContext();
 
@@ -10,7 +10,9 @@ TodoContextProvider.propTypes = {
 };
 
 export function TodoContextProvider({ children }) {
-  const [todos, setTodos] = useLocalStorage("REACT_SIMPLE_TODOS_APP_V1");
+  // const [todos, setTodos] = useLocalStorage("REACT_SIMPLE_TODOS_APP_V1");
+  const { state, createTodo, deleteTodo, deleteAllTodos, completedTodo } =
+    useTodoReducer();
 
   const [todosCompleted, setTodosCompleted] = useState({});
   const [todosIncompleted, setTodosIncompleted] = useState({});
@@ -23,39 +25,6 @@ export function TodoContextProvider({ children }) {
     { name: "Incompletos", value: "incompleted" },
   ];
 
-  const createTodo = ({ name }) => {
-    const newTodo = {
-      id: uuidv4(),
-      name,
-      isCompleted: false,
-    };
-
-    setTodos([...todos, newTodo]);
-  };
-
-  const deleteTodo = (id) => {
-    const newTodos = todos.filter((todo) => todo.id !== id);
-
-    setTodos(newTodos);
-  };
-
-  const deleteAllTodos = () => {
-    setTodos([]);
-  };
-
-  const completedTodo = (id) => {
-    const newTodos = todos.map((todo) => {
-      if (todo.id !== id) return todo;
-
-      return {
-        ...todo,
-        isCompleted: !todo.isCompleted,
-      };
-    });
-
-    setTodos(newTodos);
-  };
-
   const changeFilterOption = (option) => {
     setFilterOptionSelected(option);
   };
@@ -65,14 +34,14 @@ export function TodoContextProvider({ children }) {
   };
 
   useEffect(() => {
-    setTodosCompleted(todos.filter((todo) => todo.isCompleted));
-    setTodosIncompleted(todos.filter((todo) => !todo.isCompleted));
-  }, [todos]);
+    setTodosCompleted(state.filter((todo) => todo.isCompleted));
+    setTodosIncompleted(state.filter((todo) => !todo.isCompleted));
+  }, [state]);
 
   return (
     <TodoContext.Provider
       value={{
-        todos,
+        todos: state,
         createTodo,
         deleteTodo,
         deleteAllTodos,
