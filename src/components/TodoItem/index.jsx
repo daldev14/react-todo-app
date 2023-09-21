@@ -6,7 +6,7 @@ TodoItem.propTypes = {
 };
 
 export default function TodoItem({ todo }) {
-  const { completedTodo, deleteTodo } = useTodo();
+  const { completedTodo, removeTodo } = useTodo();
   const { id, name, isCompleted } = todo;
 
   const handlerComplete = () => {
@@ -14,7 +14,7 @@ export default function TodoItem({ todo }) {
   };
 
   const handlerDelete = () => {
-    deleteTodo(id);
+    removeTodo(id);
   };
 
   return (

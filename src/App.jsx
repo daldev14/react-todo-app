@@ -1,7 +1,6 @@
 import TodoContainer from "./components/TodoContainer";
 import BtnChangeTheme from "./components/Buttons/BtnChangeTheme";
 import { useTodo } from "./hooks/useTodo";
-import "./App.css";
 
 export default function App() {
   const { toggleDarkMode, changeChangeTheme } = useTodo();

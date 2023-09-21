@@ -1,8 +1,12 @@
 import { useReducer } from "react";
-import { reducer, TODO_ACTION_TYPES } from "../reducers/todoReducer";
+import {
+  reducer,
+  todosInitialState,
+  TODO_ACTION_TYPES,
+} from "../reducers/todoReducer";
 
 export default function useTodoReducer() {
-  const [state, dispatch] = useReducer(reducer, []);
+  const [state, dispatch] = useReducer(reducer, todosInitialState);
 
   const createTodo = ({ name }) =>
     dispatch({
@@ -12,7 +16,7 @@ export default function useTodoReducer() {
       },
     });
 
-  const deleteTodo = (id) =>
+  const removeTodo = (id) =>
     dispatch({ type: TODO_ACTION_TYPES.REMOVE_TODO, payload: { id } });
 
   const deleteAllTodos = () =>
@@ -21,5 +25,5 @@ export default function useTodoReducer() {
   const completedTodo = (id) =>
     dispatch({ type: TODO_ACTION_TYPES.COMPLETE_TODO, payload: { id } });
 
-  return { state, createTodo, deleteTodo, deleteAllTodos, completedTodo };
+  return { state, createTodo, removeTodo, deleteAllTodos, completedTodo };
 }
