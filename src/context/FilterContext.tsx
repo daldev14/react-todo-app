@@ -1,9 +1,8 @@
 import { createContext, useState } from "react";
-import PropTypes from "prop-types";
 
-FilterProvider.propTypes = {
-  children: PropTypes.node.isRequired,
-};
+interface Props {
+  children: React.ReactNode;
+}
 
 export const FilterContext = createContext();
 
@@ -13,7 +12,7 @@ const FILTER_OPTION = {
   active: "active",
 };
 
-export function FilterProvider({ children }) {
+export function FilterProvider({ children }: Props) {
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState(FILTER_OPTION.all);
 

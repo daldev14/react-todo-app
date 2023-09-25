@@ -1,14 +1,13 @@
-import { createContext, useState } from "react";
-import PropTypes from "prop-types";
+import React, { createContext, useState } from "react";
 import useTodoReducer from "../hooks/useTodoReducer";
+
+interface Props {
+  children: React.ReactNode;
+}
 
 export const TodoContext = createContext();
 
-TodoProvider.propTypes = {
-  children: PropTypes.node.isRequired,
-};
-
-export function TodoProvider({ children }) {
+export function TodoProvider({ children }: Props) {
   const { state, createTodo, removeTodo, deleteAllTodos, completedTodo } =
     useTodoReducer();
 

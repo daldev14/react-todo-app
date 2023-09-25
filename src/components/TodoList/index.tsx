@@ -1,11 +1,15 @@
 import TodoItem from "../TodoItem";
-import PropTypes from "prop-types";
 
-TodoList.propTypes = {
-  todos: PropTypes.array.isRequired,
-};
+interface Props {
+  todos: {
+    id: string;
+    name: string;
+    isCompleted: boolean;
+  }[];
+}
 
-export default function TodoList({ todos }) {
+
+export default function TodoList({ todos }: Props) {
   return (
     <div className="grid gap-2 w-full sm:px-1">
       {todos.length ? (

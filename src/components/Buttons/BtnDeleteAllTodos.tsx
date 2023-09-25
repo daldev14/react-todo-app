@@ -1,10 +1,8 @@
-import PropTypes from "prop-types";
+interface Props {
+  handlerClick: () => void;
+}
 
-BtnDeleteAllTodos.propTypes = {
-  handlerClick: PropTypes.func,
-};
-
-export default function BtnDeleteAllTodos({ handlerClick }) {
+export default function BtnDeleteAllTodos({ handlerClick }: Props) {
   return (
     <button
       onClick={handlerClick}

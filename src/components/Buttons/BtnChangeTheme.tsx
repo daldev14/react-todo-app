@@ -1,11 +1,9 @@
-import PropTypes from "prop-types";
+interface Props {
+  isDark: boolean;
+  handlerClick: () => void;
+}
 
-BtnChangeTheme.propTypes = {
-  isDark: PropTypes.bool.isRequired,
-  handlerClick: PropTypes.func.isRequired,
-};
-
-export default function BtnChangeTheme({ isDark, handlerClick }) {
+export default function BtnChangeTheme({ isDark, handlerClick }: Props) {
   return (
     <button
       className="group p-2 rounded-md transition-all duration-300 hover:bg-slate-200/50 hover:shadow-sm dark:hover:bg-white/10"

@@ -1,11 +1,14 @@
-import PropTypes from "prop-types";
 import { useTodo } from "../../hooks/useTodo";
 
-TodoItem.propTypes = {
-  todo: PropTypes.object.isRequired,
-};
+interface Props {
+  todo: {
+    id: string;
+    name: string;
+    isCompleted: boolean;
+  };
+}
 
-export default function TodoItem({ todo }) {
+export default function TodoItem({ todo }: Props) {
   const { completedTodo, removeTodo } = useTodo();
   const { id, name, isCompleted } = todo;
 

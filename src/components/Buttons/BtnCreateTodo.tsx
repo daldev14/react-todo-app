@@ -1,10 +1,8 @@
-import PropTypes from "prop-types";
+interface Props {
+  handlerClick: () => void;
+}
 
-BtnCreateTodo.propTypes = {
-  handlerClick: PropTypes.func,
-};
-
-export default function BtnCreateTodo({ handlerClick }) {
+export default function BtnCreateTodo({ handlerClick }: Props) {
   return (
     <button
       onClick={handlerClick}

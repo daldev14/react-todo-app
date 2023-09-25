@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from "react";
+import { useTodo } from "../../hooks/useTodo";
 import BtnCreateTodo from "../Buttons/BtnCreateTodo";
 import BtnDeleteAllTodos from "../Buttons/BtnDeleteAllTodos";
 import BtnDefault from "../Buttons/BtnDefault";
-import { useTodo } from "../../hooks/useTodo";
 
 export default function TodoModal() {
   const [showModal, setShowModal] = useState(false);
