@@ -1,13 +1,13 @@
-import { useId } from "react";
-import { useFilter } from "../../hooks/useFilter";
+import { useId } from 'react'
+import { useFilter } from '../../hooks/useFilter'
 
-export default function InputSearch() {
-  const todoSearchID = useId();
-  const { changeQuery } = useFilter();
+export default function InputSearch () {
+  const todoSearchID = useId()
+  const { changeQuery } = useFilter()
 
-  const handlerChange = (event) => {
-    changeQuery(event.target.value);
-  };
+  const handlerChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    changeQuery(event.target.value)
+  }
 
   return (
     <div className="bg-white px-2 rounded-md w-full border transition duration-300 hover:shadow-md dark:bg-c-black dark:border-c-accent-black dark:text-white dark:hover:shadow-c-black">
@@ -40,5 +40,5 @@ export default function InputSearch() {
         />
       </div>
     </div>
-  );
+  )
 }

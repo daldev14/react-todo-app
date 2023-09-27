@@ -1,8 +1,8 @@
 interface Props {
-  handlerClick: () => void;
+  handlerClick: () => void
 }
 
-export default function BtnDeleteAllTodos({ handlerClick }: Props) {
+export default function BtnDeleteAllTodos ({ handlerClick }: Props) {
   return (
     <button
       onClick={handlerClick}
@@ -25,5 +25,5 @@ export default function BtnDeleteAllTodos({ handlerClick }: Props) {
         />
       </svg>
     </button>
-  );
+  )
 }

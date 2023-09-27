@@ -1,31 +1,24 @@
-import { useTodo } from "../../hooks/useTodo";
+import { useTodo } from '../../hooks/useTodo'
+import { type Todo } from '../../types/todo'
 
-interface Props {
-  todo: {
-    id: string;
-    name: string;
-    isCompleted: boolean;
-  };
-}
-
-export default function TodoItem({ todo }: Props) {
-  const { completedTodo, removeTodo } = useTodo();
-  const { id, name, isCompleted } = todo;
+export default function TodoItem ({ todo }: { todo: Todo }) {
+  const { completedTodo, removeTodo } = useTodo()
+  const { id, title, isCompleted } = todo
 
   const handlerComplete = () => {
-    completedTodo(id);
-  };
+    completedTodo(id)
+  }
 
   const handlerDelete = () => {
-    removeTodo(id);
-  };
+    removeTodo(id)
+  }
 
   return (
     <div
       className={`${
         isCompleted
-          ? "bg-c-blue text-white border-c-lightBlue hover:shadow-c-blue/30"
-          : "bg-white text-black dark:bg-c-black dark:text-white"
+          ? 'bg-c-blue text-white border-c-lightBlue hover:shadow-c-blue/30'
+          : 'bg-white text-black dark:bg-c-black dark:text-white'
       } font-semibold w-full .px-4 .py-4 rounded border shadow-sm  transition-all duration-300 hover:shadow-md dark:border-c-accent-black dark:hover:shadow-c-black`}
     >
       <div className="flex items-center gap-1.5">
@@ -39,7 +32,7 @@ export default function TodoItem({ todo }: Props) {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className={`${!isCompleted ? "text-c-gray" : "text-white"} w-6 h-6`}
+            className={`${!isCompleted ? 'text-c-gray' : 'text-white'} w-6 h-6`}
           >
             <path
               strokeLinecap="round"
@@ -49,8 +42,8 @@ export default function TodoItem({ todo }: Props) {
           </svg>
 
           <div className="flex-1 mx-2">
-            <span className={`${isCompleted ? "line-through" : ""}`}>
-              {name}
+            <span className={`${isCompleted ? 'line-through' : ''}`}>
+              {title}
             </span>
           </div>
         </div>
@@ -67,7 +60,7 @@ export default function TodoItem({ todo }: Props) {
               strokeWidth={1.5}
               stroke="currentColor"
               className={`${
-                isCompleted ? "text-white" : "text-black"
+                isCompleted ? 'text-white' : 'text-black'
               } w-5 h-5 group-hover:text-white dark:text-white`}
             >
               <title>Eliminar</title>
@@ -81,5 +74,5 @@ export default function TodoItem({ todo }: Props) {
         </div>
       </div>
     </div>
-  );
+  )
 }

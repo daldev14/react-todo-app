@@ -1,34 +1,34 @@
-import { useState, useRef, useEffect } from "react";
-import { useTodo } from "../../hooks/useTodo";
-import BtnCreateTodo from "../Buttons/BtnCreateTodo";
-import BtnDeleteAllTodos from "../Buttons/BtnDeleteAllTodos";
-import BtnDefault from "../Buttons/BtnDefault";
+import React, { useState, useRef, useEffect } from 'react'
+import { useTodo } from '../../hooks/useTodo'
+import BtnCreateTodo from '../Buttons/BtnCreateTodo'
+import BtnDeleteAllTodos from '../Buttons/BtnDeleteAllTodos'
+import BtnDefault from '../Buttons/BtnDefault'
 
-export default function TodoModal() {
-  const [showModal, setShowModal] = useState(false);
-  const [todo, setTodo] = useState("");
-  const { createTodo, deleteAllTodos } = useTodo();
-  const inputRef = useRef();
+export default function TodoModal () {
+  const inputRef = useRef<HTMLInputElement>(null)
+  const [showModal, setShowModal] = useState(false)
+  const [todo, setTodo] = useState('')
+  const { createTodo, deleteAllTodos } = useTodo()
 
   const handlerToggleShowModal = () => {
-    setShowModal(!showModal);
-    setTodo("");
-  };
+    setShowModal(!showModal)
+    setTodo('')
+  }
 
   useEffect(() => {
-    inputRef.current.focus();
-  }, [showModal]);
+    if (inputRef.current != null) inputRef.current.focus()
+  }, [showModal, inputRef])
 
-  const handlerChange = (event) => {
-    setTodo(event.target.value);
-  };
+  const handlerChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTodo(event.target.value)
+  }
 
-  const handlerSubmit = (event) => {
-    event.preventDefault();
-    if (todo !== "") createTodo({ name: todo.trim() });
-    setTodo("");
-    setShowModal(!showModal);
-  };
+  const handlerSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    if (todo !== '') createTodo({ title: todo.trim() })
+    setTodo('')
+    setShowModal(!showModal)
+  }
 
   return (
     <div>
@@ -42,7 +42,7 @@ export default function TodoModal() {
       {/* modal */}
       <div
         className={`${
-          showModal ? "inline-block" : "hidden"
+          showModal ? 'inline-block' : 'hidden'
         } fixed top-0 left-0 w-full h-full bg-cm-gray dark:bg-cm-black`}
       >
         <div className="h-full w-full grid place-items-center px-4 sm:p-0">
@@ -83,5 +83,5 @@ export default function TodoModal() {
         </div>
       </div>
     </div>
-  );
+  )
 }

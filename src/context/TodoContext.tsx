@@ -1,21 +1,42 @@
-import React, { createContext, useState } from "react";
-import useTodoReducer from "../hooks/useTodoReducer";
+import { createContext, useState } from 'react'
+import useTodoReducer from '../hooks/useTodoReducer'
+import { type ListOfTodos } from '../types/todo'
 
-interface Props {
-  children: React.ReactNode;
+interface ProviderProps {
+  children: React.ReactNode
 }
 
-export const TodoContext = createContext();
+interface ContextProps {
+  todos: ListOfTodos
+  createTodo: ({ title }: { title: string }) => void
+  removeTodo: (id: string) => void
+  deleteAllTodos: () => void
+  completedTodo: (id: string) => void
+  toggleDarkMode: boolean
+  changeChangeTheme: () => void
+}
 
-export function TodoProvider({ children }: Props) {
+const initialContext: ContextProps = {
+  todos: [],
+  createTodo: () => {},
+  removeTodo: () => {},
+  deleteAllTodos: () => {},
+  completedTodo: () => {},
+  toggleDarkMode: false,
+  changeChangeTheme: () => {}
+}
+
+export const TodoContext = createContext<ContextProps>(initialContext)
+
+export function TodoProvider ({ children }: ProviderProps) {
   const { state, createTodo, removeTodo, deleteAllTodos, completedTodo } =
-    useTodoReducer();
+    useTodoReducer()
 
-  const [toggleDarkMode, setToggleDarkMode] = useState(false);
+  const [toggleDarkMode, setToggleDarkMode] = useState(false)
 
   const changeChangeTheme = () => {
-    setToggleDarkMode(!toggleDarkMode);
-  };
+    setToggleDarkMode(!toggleDarkMode)
+  }
 
   return (
     <TodoContext.Provider
@@ -26,10 +47,10 @@ export function TodoProvider({ children }: Props) {
         deleteAllTodos,
         completedTodo,
         toggleDarkMode,
-        changeChangeTheme,
+        changeChangeTheme
       }}
     >
       {children}
     </TodoContext.Provider>
-  );
+  )
 }

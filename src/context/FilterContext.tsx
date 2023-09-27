@@ -1,46 +1,59 @@
-import { createContext, useState } from "react";
+import { createContext, useState } from 'react'
+import { type FilterValue } from '../types/filter'
+import { FilterOption } from '../types/const'
+import { type ListOfTodos } from '../types/todo'
 
 interface Props {
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 
-export const FilterContext = createContext();
+interface ContextProps {
+  query: string
+  changeQuery: (value: string) => void
+  filter: FilterValue
+  changeFilter: ({ option }: { option: FilterValue }) => void
+  filterTodos: (todos: ListOfTodos) => ListOfTodos
+}
 
-const FILTER_OPTION = {
-  all: "all",
-  complete: "complete",
-  active: "active",
-};
+const defaultContextProps: ContextProps = {
+  query: '',
+  changeQuery: () => {},
+  filter: 'all',
+  changeFilter: () => {},
+  filterTodos: () => []
+}
 
-export function FilterProvider({ children }: Props) {
-  const [query, setQuery] = useState("");
-  const [filter, setFilter] = useState(FILTER_OPTION.all);
+export const FilterContext = createContext<ContextProps>(defaultContextProps)
 
-  const changeQuery = (value) => setQuery(value);
+export function FilterProvider ({ children }: Props) {
+  const [query, setQuery] = useState('')
+  const [filter, setFilter] = useState<FilterValue>('all')
 
-  const changeFilter = (option) => {
-    setFilter(FILTER_OPTION[option]);
-  };
+  const changeQuery = (value: string) => { setQuery(value) }
 
-  const filterTodos = (todos) => {
-    let newTodos = todos;
+  const changeFilter = ({ option }: { option: FilterValue }) => {
+    setFilter(option)
+  }
 
-    if (filter === FILTER_OPTION.complete) {
-      newTodos = todos.filter((todo) => todo.isCompleted);
+  const filterTodos = (todos: ListOfTodos) => {
+    let newTodos = todos
+
+    if (filter === FilterOption.COMPLETE) {
+      newTodos = todos.filter((todo) => todo.isCompleted)
     }
 
-    if (filter === FILTER_OPTION.active) {
-      newTodos = todos.filter((todo) => !todo.isCompleted);
+    if (filter === FilterOption.ACTIVE) {
+      newTodos = todos.filter((todo) => !todo.isCompleted)
     }
 
-    if (query !== "") {
+    if (query !== '') {
       newTodos = newTodos.filter((todo) =>
-        todo.name.toLowerCase().includes(query.toLowerCase())
-      );
+        todo.title.toLowerCase().includes(query.toLowerCase())
+      )
     }
 
-    return newTodos;
-  };
+    return newTodos
+  }
 
   return (
     <FilterContext.Provider
@@ -49,10 +62,10 @@ export function FilterProvider({ children }: Props) {
         changeQuery,
         filter,
         changeFilter,
-        filterTodos,
+        filterTodos
       }}
     >
       {children}
     </FilterContext.Provider>
-  );
+  )
 }

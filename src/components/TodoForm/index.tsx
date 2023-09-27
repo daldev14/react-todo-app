@@ -1,13 +1,13 @@
-import InputSearch from "../InputSearch";
-import InputFilter from "../InputFilter";
-import { useRef } from "react";
+import { useRef } from 'react'
+import InputSearch from '../InputSearch'
+import InputFilter from '../InputFilter'
 
-export default function TodoForm() {
-  const formRef = useRef();
+export default function TodoForm () {
+  const formRef = useRef<HTMLFormElement>(null)
 
-  const handlerSubmit = (event) => {
-    event.preventDefault();
-  };
+  const handlerSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+  }
 
   return (
     <div>
@@ -20,5 +20,5 @@ export default function TodoForm() {
         <InputFilter />
       </form>
     </div>
-  );
+  )
 }

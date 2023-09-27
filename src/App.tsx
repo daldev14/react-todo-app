@@ -1,14 +1,14 @@
-import TodoContainer from "./components/TodoContainer";
-import BtnChangeTheme from "./components/Buttons/BtnChangeTheme";
-import { useTodo } from "./hooks/useTodo";
+import TodoContainer from './components/TodoContainer'
+import BtnChangeTheme from './components/Buttons/BtnChangeTheme'
+import { useTodo } from './hooks/useTodo'
 
-export default function App() {
-  const { toggleDarkMode, changeChangeTheme } = useTodo();
+export default function App () {
+  const { toggleDarkMode, changeChangeTheme } = useTodo()
 
   return (
     <div
       className={`relative w-full min-h-[100vh] flex flex-col ${
-        toggleDarkMode ? "dark bg-cm-black" : "bg-cm-gray"
+        toggleDarkMode ? 'dark bg-cm-black' : 'bg-cm-gray'
       }`}
     >
       <header className="px-6 py-2 sm:px-10">
@@ -32,5 +32,5 @@ export default function App() {
         <TodoContainer />
       </main>
     </div>
-  );
+  )
 }

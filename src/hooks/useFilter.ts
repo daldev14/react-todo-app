@@ -1,12 +1,12 @@
-import { useContext } from "react";
-import { FilterContext } from "../context/FilterContext";
+import { useContext } from 'react'
+import { FilterContext } from '../context/FilterContext'
 
-export function useFilter() {
-  const context = useContext(FilterContext);
+export function useFilter () {
+  const context = useContext(FilterContext)
 
   if (context === undefined) {
-    throw new Error("useFilter must be used within a FilterProvider");
+    throw new Error('useFilter must be used within a FilterProvider')
   }
 
-  return context;
+  return context
 }
