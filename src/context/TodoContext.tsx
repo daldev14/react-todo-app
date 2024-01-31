@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react'
+import { createContext, useEffect, useState } from 'react'
 import useTodoReducer from '../hooks/useTodoReducer'
 import { type ListOfTodos } from '../types/todo'
 
@@ -32,11 +32,27 @@ export function TodoProvider ({ children }: ProviderProps) {
   const { state, createTodo, removeTodo, deleteAllTodos, completedTodo } =
     useTodoReducer()
 
-  const [toggleDarkMode, setToggleDarkMode] = useState(false)
+  const [toggleDarkMode, setToggleDarkMode] = useState(() => {
+    const value = window.localStorage.getItem('REACT_SIMPLE_TODOS_APP_THEME_V1')
+
+    if (!value) {
+      window.localStorage.setItem('REACT_SIMPLE_TODOS_APP_THEME_V1', 'false')
+      return false
+    }
+
+    return JSON.parse(value)
+  })
 
   const changeChangeTheme = () => {
     setToggleDarkMode(!toggleDarkMode)
   }
+
+  useEffect(() => {
+    window.localStorage.setItem(
+      'REACT_SIMPLE_TODOS_APP_THEME_V1',
+      `${toggleDarkMode}`
+    )
+  }, [toggleDarkMode])
 
   return (
     <TodoContext.Provider
@@ -48,8 +64,7 @@ export function TodoProvider ({ children }: ProviderProps) {
         completedTodo,
         toggleDarkMode,
         changeChangeTheme
-      }}
-    >
+      }}>
       {children}
     </TodoContext.Provider>
   )
